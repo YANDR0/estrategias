@@ -20,21 +20,24 @@ public class divide {
     }
 
 
-    //ESTA MAMADA NO JALA >:v
+
     private static int[] mArr;
 
     private static void merge(int[] arr, int izq, int cen, int der){
         int i = izq;
-        int j = cen;
+        int j = cen + 1;
+        int k = izq;
 
-        for (int k = izq; k < der; k++) 
-            mArr[k] = arr[k];
-        
-        while(i < cen && j < der)
-            arr[izq++] = mArr[i] <= mArr[j]? mArr[i++]: mArr[j++];   
-        
-        while(izq < der)
-            arr[izq++] = i < cen? mArr[i++]: mArr[j++];
+        for (int z = izq; z <= der; z++)
+            mArr[z] = arr[z];
+
+        while (i <= cen && j <= der)
+            arr[k++] = mArr[i] <= mArr[j]? mArr[i++]: mArr[j++];
+
+        while (i <= cen)
+            arr[k++] = mArr[i++];
+        while (j <= der)
+            arr[k++] = mArr[j++];
     }
 
     private static void mergeSort(int[] arr, int izq, int der){
@@ -92,18 +95,26 @@ public class divide {
 
     public static int estadistico(int[] arr, int index){
         if(index < 0 || index > arr.length - 1) return 0; 
-        return estadistico(arr, 0, arr.length-1, index);
+        int[] xd = arr.clone();
+        return estadistico(xd, 0, arr.length-1, index);
     }
 
+    public static int m(int[] arr){
+        return estadistico(arr, arr.length/2);
+    }
     public static void main(String[] args) throws Exception {
 
-        int[] aver = { 12, 11, 13, 5, 6, 7, 0, 10};
+        int[] aver = { 12, 11, 13, 5, 6, 7, 1, 10};
 
-        
+
+        //{1}
+
+        System.out.println(Arrays.toString(aver)); 
+        System.out.println(estadistico(aver, 0));   
+        System.out.println(estadistico(aver, aver.length/2));   
         quickSort(aver);
-        System.out.println(Arrays.toString(aver));
-
-        
+        System.out.println(Arrays.toString(aver)); 
+           
     }
     
 }
